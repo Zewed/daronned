@@ -20,6 +20,7 @@ export interface EtatJeu {
   zone: Zone;
   coupEnCours: boolean;
   premiereFois: boolean;
+  elargissementSignale: boolean;
   xp: number;
   plantes: Plante[];
   bonus: Bonus[];
@@ -37,9 +38,15 @@ function jauge(zone: Zone): string {
 }
 
 function boutonApresCombat(etat: EtatJeu): string {
-  return etat.suiteDuCombat === "cuisine"
-    ? `<button type="button" data-action="cuisine">Passer en cuisine</button>`
-    : `<button type="button" data-action="potager">Retour au potager</button>`;
+  const suite =
+    etat.suiteDuCombat === "cuisine"
+      ? `<button type="button" data-action="cuisine">Passer en cuisine</button>`
+      : `<button type="button" data-action="potager">Retour au potager</button>`;
+  return `
+    <div class="actions">
+      ${suite}
+      <button type="button" data-action="refaire">Refaire le combat</button>
+    </div>`;
 }
 
 function ecranCombat(etat: EtatJeu): string {

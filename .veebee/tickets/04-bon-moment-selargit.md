@@ -5,6 +5,7 @@ milestone: 02-combat
 depends_on: ["01"]
 design: null
 tracker: null
+status: done
 ---
 
 ## Ce que l'utilisateur fait
