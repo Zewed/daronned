@@ -1,0 +1,173 @@
+:root {
+  --carrelage: #f2e6cf;
+  --carrelage-joint: #e3d3b4;
+  --papier: #fffaf0;
+  --encre: #2a1a1f;
+  --tomate: #c8321f;
+  --aubergine: #4d2748;
+  --courge: #e8891c;
+  --poireau: #5a7a2e;
+  --cri: "Arial Black", Impact, "Helvetica Neue", Arial, sans-serif;
+  --texte: "Helvetica Neue", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--encre);
+  font-family: var(--texte);
+  background-color: var(--carrelage);
+  background-image:
+    linear-gradient(var(--carrelage-joint) 2px, transparent 2px),
+    linear-gradient(90deg, var(--carrelage-joint) 2px, transparent 2px);
+  background-size: 64px 64px;
+}
+
+#app {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+.scene {
+  position: relative;
+  padding: 28px;
+  background: var(--papier);
+  box-shadow: 0 0 0 4px #fff, 6px 8px 0 rgba(42, 26, 31, 0.25);
+  transform: rotate(-0.4deg);
+}
+
+h1 {
+  margin: 0 0 16px;
+  font-family: var(--cri);
+  font-size: 2.6rem;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--tomate);
+  transform: rotate(-1.5deg);
+}
+
+.arene {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  min-height: 170px;
+  padding: 0 24px;
+}
+
+.figure {
+  width: 140px;
+  height: 150px;
+  filter: drop-shadow(0 0 0 #fff) drop-shadow(3px 4px 0 rgba(42, 26, 31, 0.3));
+}
+
+.arene--frappe .figure {
+  animation: pose 400ms ease-out;
+}
+
+@keyframes pose {
+  from {
+    transform: rotateY(80deg);
+  }
+  to {
+    transform: rotateY(0deg);
+  }
+}
+
+.etiquette {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  margin: 0;
+  padding: 6px 12px;
+  font-family: var(--cri);
+  color: #fff;
+  background: var(--tomate);
+  transform: rotate(3deg);
+}
+
+.adversaire {
+  font-weight: 700;
+}
+
+.aide {
+  padding: 10px 12px;
+  background: #fdf1a0;
+  transform: rotate(-0.6deg);
+}
+
+.jauge {
+  position: relative;
+  height: 28px;
+  margin: 16px 0;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 0 0 2px var(--encre);
+}
+
+.jauge__zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--zone-debut);
+  width: var(--zone-largeur);
+  background: var(--poireau);
+}
+
+.jauge__curseur {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 6px;
+  background: var(--tomate);
+  animation: curseur var(--duree) linear forwards;
+}
+
+@keyframes curseur {
+  to {
+    left: 100%;
+  }
+}
+
+.message {
+  min-height: 1.4em;
+  font-weight: 700;
+}
+
+.note {
+  padding: 14px 16px;
+  font-size: 1.2rem;
+  background: #fdf1a0;
+  transform: rotate(0.8deg);
+}
+
+button {
+  padding: 10px 16px;
+  font-family: var(--cri);
+  font-size: 1rem;
+  color: #fff;
+  cursor: pointer;
+  background: var(--aubergine);
+  border: 0;
+  box-shadow: 3px 3px 0 var(--courge);
+}
+
+button:hover {
+  transform: rotate(-1deg);
+}
+
+button:focus-visible {
+  outline: 3px solid var(--courge);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arene--frappe .figure {
+    animation: none;
+  }
+}

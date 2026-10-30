@@ -1,5 +1,8 @@
-const root = document.querySelector<HTMLElement>("#app");
+import { demarrerJeu } from "./jeu";
+import "./style.css";
 
-if (root) {
-  root.textContent = "Daronned";
+const racine = document.querySelector<HTMLElement>("#app");
+
+if (racine) {
+  demarrerJeu(racine);
 }
