@@ -5,6 +5,7 @@ milestone: 01-potager
 depends_on: ["02"]
 design: null
 tracker: null
+status: done
 ---
 
 ## Ce que l'utilisateur fait

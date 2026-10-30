@@ -9,9 +9,9 @@ import {
   zoneDuBonMoment,
 } from "./combat";
 import { ecran, type EtatJeu } from "./ecrans";
-import { arroser, degatsParfaitsDe, planter, plusMure } from "./potager";
+import { arroser, combiner, degatsDesBonus, degatsParfaitsDe, planter, plusMure } from "./potager";
 
-const HEROS = { nom: "Héros", figure: "heros", degatsParfaits: DEGATS_COUP_PARFAIT } as const;
+const HEROS = { nom: "Héros", figure: "heros", degatsParfaits: DEGATS_COUP_PARFAIT, annonce: "" } as const;
 
 export function demarrerJeu(racine: HTMLElement): () => void {
   const etat: EtatJeu = {
@@ -25,6 +25,7 @@ export function demarrerJeu(racine: HTMLElement): () => void {
     premiereFois: true,
     xp: 0,
     plantes: [],
+    bonus: [],
   };
   let departDuCoup = 0;
   let finDuCoup: ReturnType<typeof setTimeout> | undefined;
@@ -73,21 +74,43 @@ export function demarrerJeu(racine: HTMLElement): () => void {
     etat.scene = "combat";
     etat.vieAdversaire = VIE_OIGNON;
     etat.suiteDuCombat = "potager";
-    etat.combattant = { nom: plante.nom, figure: "carotte", degatsParfaits: degatsParfaitsDe(plante) };
+    const { nom, feminin, figure } = plante.sorte;
+    etat.combattant = {
+      nom,
+      figure,
+      degatsParfaits: degatsParfaitsDe(plante) + degatsDesBonus(etat.bonus),
+      annonce: `${feminin ? "La" : "Le"} ${nom.toLowerCase()} combat pour toi.`,
+    };
+  }
+
+  function combinerPlantes(): void {
+    const premiere = racine.querySelector<HTMLSelectElement>("#premiere-plante")?.value ?? "";
+    const deuxieme = racine.querySelector<HTMLSelectElement>("#deuxieme-plante")?.value ?? "";
+    const bonus = combiner(premiere, deuxieme);
+    if (!bonus) {
+      etat.message = "Rien ne se passe : ces deux-là ne s'entendent pas.";
+    } else if (etat.bonus.some(({ nom }) => nom === bonus.nom)) {
+      etat.message = "Tu connais déjà cette combinaison.";
+    } else {
+      etat.bonus.push(bonus);
+      etat.message = "Bonne combinaison !";
+    }
   }
 
   function surClic(evenement: MouseEvent): void {
     const cible = evenement.target as HTMLElement;
-    const action = cible.closest<HTMLElement>("[data-action]")?.dataset.action;
+    const bouton = cible.closest<HTMLElement>("[data-action]");
+    const action = bouton?.dataset.action;
     if (action === "cuisine") etat.scene = "cuisine";
     if (action === "cuisiner") etat.scene = "degustation";
     if (action === "potager") {
       etat.scene = "potager";
       etat.message = "";
     }
-    if (action === "planter") etat.plantes.push(planter());
+    if (action === "planter") etat.plantes.push(planter(bouton?.dataset.sorte ?? ""));
     if (action === "arroser") etat.plantes.forEach(arroser);
     if (action === "envoyer") envoyerAuCombat();
+    if (action === "combiner") combinerPlantes();
     rendre();
   }
 

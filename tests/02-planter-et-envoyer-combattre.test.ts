@@ -15,7 +15,7 @@ describe("le joueur plante une graine, fait mûrir un légume et l'envoie combat
   });
 
   it("plante une graine et voit le légume passer par des étapes distinctes", () => {
-    cliquer(/planter une graine/i);
+    cliquer(/planter une carotte/i);
     expect(screen.getByTestId("plante").textContent).toMatch(/carotte, graine/i);
     cliquer(/arroser/i);
     expect(screen.getByTestId("plante").textContent).toMatch(/carotte, pousse/i);
@@ -26,7 +26,7 @@ describe("le joueur plante une graine, fait mûrir un légume et l'envoie combat
   });
 
   it("dit pourquoi il ne peut pas envoyer de légume s'il n'y en a aucun de mûr", () => {
-    cliquer(/planter une graine/i);
+    cliquer(/planter une carotte/i);
     cliquer(/envoyer au combat/i);
     expect(screen.getByRole("status").textContent).toMatch(/aucun légume n'est mûr/i);
     expect(screen.getByRole("heading", { name: /potager/i })).toBeTruthy();
@@ -60,6 +60,6 @@ describe("le joueur plante une graine, fait mûrir un légume et l'envoie combat
 });
 
 function faireMurir(arrosages: number): void {
-  cliquer(/planter une graine/i);
+  cliquer(/planter une carotte/i);
   for (let fois = 0; fois < arrosages; fois += 1) cliquer(/arroser/i);
 }
