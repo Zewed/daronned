@@ -2,7 +2,7 @@ export const DUREE_JAUGE_MS = 1600;
 export const VIE_OIGNON = 6;
 export const XP_VICTOIRE = 10;
 
-const DEGATS_COUP_PARFAIT = 3;
+export const DEGATS_COUP_PARFAIT = 3;
 const DEGATS_COUP_RATE = 1;
 
 export interface Zone {
@@ -22,8 +22,8 @@ export function jugerCoup(moment: number, zone: Zone): Verdict {
   return "parfait";
 }
 
-export function degatsDuCoup(verdict: Verdict): number {
-  return verdict === "parfait" ? DEGATS_COUP_PARFAIT : DEGATS_COUP_RATE;
+export function degatsDuCoup(verdict: Verdict, degatsParfaits: number): number {
+  return verdict === "parfait" ? degatsParfaits : DEGATS_COUP_RATE;
 }
 
 export function messageDuCoup(verdict: Verdict, degats: number): string {

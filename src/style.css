@@ -171,3 +171,24 @@ button:focus-visible {
     animation: none;
   }
 }
+
+.parcelles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 0;
+  list-style: none;
+}
+
+.parcelles li {
+  padding: 10px 14px;
+  font-weight: 700;
+  background: #e6efcf;
+  box-shadow: 0 0 0 2px #fff, 2px 3px 0 rgba(42, 26, 31, 0.25);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}

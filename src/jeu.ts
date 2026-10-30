@@ -1,4 +1,5 @@
 import {
+  DEGATS_COUP_PARFAIT,
   DUREE_JAUGE_MS,
   VIE_OIGNON,
   XP_VICTOIRE,
@@ -8,16 +9,22 @@ import {
   zoneDuBonMoment,
 } from "./combat";
 import { ecran, type EtatJeu } from "./ecrans";
+import { arroser, degatsParfaitsDe, planter, plusMure } from "./potager";
+
+const HEROS = { nom: "Héros", figure: "heros", degatsParfaits: DEGATS_COUP_PARFAIT } as const;
 
 export function demarrerJeu(racine: HTMLElement): () => void {
   const etat: EtatJeu = {
     scene: "combat",
+    combattant: HEROS,
+    suiteDuCombat: "cuisine",
     vieAdversaire: VIE_OIGNON,
     message: "",
     zone: zoneDuBonMoment(),
     coupEnCours: false,
     premiereFois: true,
     xp: 0,
+    plantes: [],
   };
   let departDuCoup = 0;
   let finDuCoup: ReturnType<typeof setTimeout> | undefined;
@@ -31,7 +38,7 @@ export function demarrerJeu(racine: HTMLElement): () => void {
     etat.coupEnCours = false;
     etat.premiereFois = false;
     const verdict = jugerCoup(moment, etat.zone);
-    const degats = degatsDuCoup(verdict);
+    const degats = degatsDuCoup(verdict, etat.combattant.degatsParfaits);
     etat.vieAdversaire = Math.max(0, etat.vieAdversaire - degats);
     etat.message = messageDuCoup(verdict, degats);
     if (etat.vieAdversaire === 0) {
@@ -56,11 +63,31 @@ export function demarrerJeu(racine: HTMLElement): () => void {
     else lancerCoup();
   }
 
+  function envoyerAuCombat(): void {
+    const plante = plusMure(etat.plantes);
+    if (!plante) {
+      etat.message = "Aucun légume n'est mûr : arrose encore avant de l'envoyer au combat.";
+      return;
+    }
+    etat.message = "";
+    etat.scene = "combat";
+    etat.vieAdversaire = VIE_OIGNON;
+    etat.suiteDuCombat = "potager";
+    etat.combattant = { nom: plante.nom, figure: "carotte", degatsParfaits: degatsParfaitsDe(plante) };
+  }
+
   function surClic(evenement: MouseEvent): void {
     const cible = evenement.target as HTMLElement;
     const action = cible.closest<HTMLElement>("[data-action]")?.dataset.action;
     if (action === "cuisine") etat.scene = "cuisine";
     if (action === "cuisiner") etat.scene = "degustation";
+    if (action === "potager") {
+      etat.scene = "potager";
+      etat.message = "";
+    }
+    if (action === "planter") etat.plantes.push(planter());
+    if (action === "arroser") etat.plantes.forEach(arroser);
+    if (action === "envoyer") envoyerAuCombat();
     rendre();
   }
 
