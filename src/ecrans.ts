@@ -1,6 +1,6 @@
 import { DUREE_JAUGE_MS, type Zone } from "./combat";
 import { figure, type Figure } from "./figures";
-import { etapeDe, type Plante } from "./potager";
+import { SORTES, etapeDe, type Bonus, type Plante } from "./potager";
 
 export type Scene = "combat" | "cuisine" | "degustation" | "potager";
 
@@ -8,6 +8,7 @@ export interface Combattant {
   nom: string;
   figure: Figure;
   degatsParfaits: number;
+  annonce: string;
 }
 
 export interface EtatJeu {
@@ -21,6 +22,7 @@ export interface EtatJeu {
   premiereFois: boolean;
   xp: number;
   plantes: Plante[];
+  bonus: Bonus[];
 }
 
 function jauge(zone: Zone): string {
@@ -45,8 +47,7 @@ function ecranCombat(etat: EtatJeu): string {
     ? `<p class="aide">Appuie sur Espace pour lancer le coup, puis encore sur Espace quand le curseur est dans la zone.</p>`
     : "";
   const suite = etat.vieAdversaire === 0 ? boutonApresCombat(etat) : "";
-  const annonce =
-    etat.combattant.figure === "heros" ? "" : `<p>La ${etat.combattant.nom.toLowerCase()} combat pour toi.</p>`;
+  const annonce = etat.combattant.annonce ? `<p>${etat.combattant.annonce}</p>` : "";
   return `
     <h1>Combat</h1>
     <div class="arene ${etat.message ? "arene--frappe" : ""}">
@@ -79,24 +80,48 @@ function ecranDegustation(): string {
   `;
 }
 
+function blocCombiner(etat: EtatJeu): string {
+  const noms = [...new Set(etat.plantes.map((plante) => plante.sorte.nom))];
+  const options = noms.map((nom) => `<option value="${nom}">${nom}</option>`).join("");
+  return `
+    <div class="actions">
+      <label>Première plante <select id="premiere-plante">${options}</select></label>
+      <label>Deuxième plante <select id="deuxieme-plante">${options}</select></label>
+      <button type="button" data-action="combiner">Combiner</button>
+    </div>`;
+}
+
+function blocBonus(etat: EtatJeu): string {
+  const contenu = etat.bonus.length
+    ? `<ul>${etat.bonus.map(({ nom, degats }) => `<li>${nom} : +${degats} dégâts</li>`).join("")}</ul>`
+    : `<p>Aucune combinaison trouvée pour l'instant.</p>`;
+  return `<div class="note" data-testid="bonus">${contenu}</div>`;
+}
+
 function ecranPotager(etat: EtatJeu): string {
   const plantes = etat.plantes.length
     ? `<ul class="parcelles">${etat.plantes
-        .map((plante) => `<li data-testid="plante">${plante.nom}, ${etapeDe(plante)}</li>`)
+        .map((plante) => `<li data-testid="plante">${plante.sorte.nom}, ${etapeDe(plante)}</li>`)
         .join("")}</ul>`
     : `<p class="aide">Ton potager est vide. Plante une graine pour commencer.</p>`;
   const arroser = etat.plantes.length
     ? `<button type="button" data-action="arroser">Arroser</button>`
     : "";
+  const planter = SORTES.map(
+    ({ nom, feminin }) =>
+      `<button type="button" data-action="planter" data-sorte="${nom}">Planter ${feminin ? "une" : "un"} ${nom.toLowerCase()}</button>`,
+  ).join("");
   return `
     <h1>Potager</h1>
     ${plantes}
     <p role="status" class="message">${etat.message}</p>
     <div class="actions">
-      <button type="button" data-action="planter">Planter une graine</button>
+      ${planter}
       ${arroser}
       <button type="button" data-action="envoyer">Envoyer au combat</button>
     </div>
+    ${etat.plantes.length > 1 ? blocCombiner(etat) : ""}
+    ${blocBonus(etat)}
   `;
 }
 
