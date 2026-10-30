@@ -1,0 +1,109 @@
+.github/workflows/verifications.yml
+  s_383c5421d839ac::t_9016dcb9893b27 1-21
+README.md
+  s_383c5421d839ac::t_09333af744118e 1-25
+tsconfig.json
+  s_383c5421d839ac::t_d6fc7a11f46a22 1-17
+src/main.ts
+  s_383c5421d839ac::t_962b325076178d 1-5
+.gitignore
+  s_383c5421d839ac::t_3096749d9cd6f0 1-4
+vite.config.ts
+  s_383c5421d839ac::t_10846982de6af2 1-8
+package.json
+  s_383c5421d839ac::t_38d48d2cdf4eef 1-12
+  s_383c5421d839ac::t_f228491099f3a2 13-15
+  s_383c5421d839ac::t_fe0d3c38bf7324 16-20
+index.html
+  s_383c5421d839ac::t_62be50f7e4db33 1-12
+.veebee/rules.md
+  s_383c5421d839ac::t_5b25e93449b662 1-57
+.veebee/style.md
+  s_383c5421d839ac::t_b5dc0873df791c 1-53
+.veebee/tickets/01-vaincre-cuisiner-gouter.md
+  s_383c5421d839ac::t_e29d9a8a6dea0b 1-33
+.veebee/tickets/02-planter-et-envoyer-combattre.md
+  s_383c5421d839ac::t_2c35f5c2b31f9f 1-32
+.veebee/tickets/03-combiner-legumes-et-fruits.md
+  s_383c5421d839ac::t_5860fae9ed14a2 1-27
+.veebee/tickets/04-bon-moment-selargit.md
+  s_383c5421d839ac::t_6219a3a4913145 1-27
+.veebee/tickets/05-daronned-combat-perdu.md
+  s_383c5421d839ac::t_6951e40ecedfa4 1-29
+.veebee/tickets/06-daronne-apprecie-ou-recadre.md
+  s_383c5421d839ac::t_40fad10c9469b5 1-30
+.veebee/tickets/07-plat-immangeable.md
+  s_383c5421d839ac::t_8834297258ab7c 1-28
+.veebee/tickets/08-quete-dans-la-maison.md
+  s_383c5421d839ac::t_3aab5b9984d938 1-30
+.veebee/tickets/09-enchainer-les-chapitres.md
+  s_383c5421d839ac::t_8409fcb7e478a0 1-29
+.veebee/tickets/10-premiere-scene.md
+  s_383c5421d839ac::t_994019d639dc69 1-28
+.veebee/tickets/11-indices-du-retournement.md
+  s_383c5421d839ac::t_5398f3f546cc72 1-28
+.veebee/tickets/12-la-daronne-avoue.md
+  s_383c5421d839ac::t_557f549653bf27 1-31
+.veebee/tickets/13-graines-et-potager.md
+  s_383c5421d839ac::t_c5104b451ac3ac 1-28
+.veebee/tickets/14-seconde-partie.md
+  s_383c5421d839ac::t_f7539a1bd9465d 1-30
+.veebee/tickets/15-battre-la-daronne.md
+  s_383c5421d839ac::t_0829af4a64471f 1-30
+.veebee/tickets/16-daronne-employee.md
+  s_383c5421d839ac::t_501f3ffd2839f5 1-27
+.veebee/tickets/17-derniere-serie-de-chapitres.md
+  s_383c5421d839ac::t_f28c9a54cb264d 1-29
+.veebee/tickets/18-grande-daronne-et-stage.md
+  s_383c5421d839ac::t_524e70bc67b08d 1-28
+CONTEXT.md
+  s_383c5421d839ac::t_21b670caabf66b 1-17
+pnpm-lock.yaml
+  s_383c5421d839ac::t_2891929af99f47 1-1254
+.veebee/decisions/0001-minions-du-heros.md
+  s_383c5421d839ac::t_4ab702a229195d 1-11
+.veebee/decisions/0002-boss-final.md
+  s_383c5421d839ac::t_a443271d85cd13 1-11
+.veebee/decisions/0003-legumes-combat-ou-bonus.md
+  s_383c5421d839ac::t_3a8d5791b5bd6d 1-11
+.veebee/decisions/0004-cout-du-daronned.md
+  s_383c5421d839ac::t_9647e6b2b52ab5 1-11
+.veebee/decisions/0005-pari-ou-dependance.md
+  s_383c5421d839ac::t_f064150fd4a189 1-11
+.veebee/decisions/0006-console-et-gratuit.md
+  s_383c5421d839ac::t_d58d6b0406a15a 1-11
+.veebee/features.md
+  s_383c5421d839ac::t_9fd8d2e00a8891 1-20
+.veebee/idea.md
+  s_383c5421d839ac::t_84fed37070f6a6 1-15
+.veebee/journeys.md
+  s_383c5421d839ac::t_013217a4da37c6 1-17
+.veebee/milestones/01-potager/idea.md
+  s_383c5421d839ac::t_fad2cd0baeed65 1-15
+.veebee/milestones/02-combat/idea.md
+  s_383c5421d839ac::t_5e09d4e70e75d2 1-15
+.veebee/milestones/03-cuisine/idea.md
+  s_383c5421d839ac::t_b13db0a6937d9e 1-15
+.veebee/milestones/04-maison/idea.md
+  s_383c5421d839ac::t_c6d8a98cb55a5d 1-15
+.veebee/milestones/05-daronne/idea.md
+  s_383c5421d839ac::t_c5daa26a0e4a5d 1-15
+.veebee/product.md
+  s_383c5421d839ac::t_b26532fe499707 1-53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1b6c70deb25729da235055ceef0522b72d1209cc",
+  "prompts": {},
+  "sessions": {
+    "s_383c5421d839ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dfb06b70-2787-445b-8b97-fa3e9906c216",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
