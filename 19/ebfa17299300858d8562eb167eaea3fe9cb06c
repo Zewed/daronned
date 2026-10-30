@@ -1,0 +1,46 @@
+tests/01-vaincre-cuisiner-gouter.test.ts
+  s_383c5421d839ac::t_10c943825f8256 4
+tests/02-planter-et-envoyer-combattre.test.ts
+  s_383c5421d839ac::t_d7dd46d592908f 39
+  s_383c5421d839ac::t_cc29bcbce3a6d1 3
+  s_383c5421d839ac::t_c2b368eb064eed 1-2,4-26,60
+  s_383c5421d839ac::t_e72fd6caf69500 27-38,40-59,61-65
+src/potager.ts
+  s_383c5421d839ac::t_04ca3166c0e293 1-2,5-20,30
+  s_383c5421d839ac::t_d7dd46d592908f 3-4,21-29
+src/jeu.ts
+  s_383c5421d839ac::t_7c805f7723238c 88-89
+  s_383c5421d839ac::t_552acaad2900a3 27
+  s_383c5421d839ac::t_d7dd46d592908f 2,12-14,19-20,41,66-78,84-87,90
+tests/aide.ts
+  s_383c5421d839ac::t_3ed3363ecc0971 26-46
+src/ecrans.ts
+  s_383c5421d839ac::t_d7dd46d592908f 2,7-11,15-16,37-42,47-49,53,56,94-99
+  s_383c5421d839ac::t_1cbc66a05020e8 3,5,23
+  s_383c5421d839ac::t_8798bbc32050b5 78-93,107
+  s_383c5421d839ac::t_d2601f156f2a09 6,57
+src/style.css
+  s_383c5421d839ac::t_d7dd46d592908f 174-194
+src/figures.ts
+  s_383c5421d839ac::t_d7dd46d592908f 5
+src/combat.ts
+  s_383c5421d839ac::t_d7dd46d592908f 5,25-26
+.veebee/tickets/02-planter-et-envoyer-combattre.md
+  s_383c5421d839ac::t_ab5c9e9ffeea28 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "19ebfa17299300858d8562eb167eaea3fe9cb06c",
+  "prompts": {},
+  "sessions": {
+    "s_383c5421d839ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dfb06b70-2787-445b-8b97-fa3e9906c216",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zewed <dewez.antoine2@gmail.com>"
+    }
+  }
+}
