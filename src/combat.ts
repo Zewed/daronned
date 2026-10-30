@@ -12,8 +12,14 @@ export interface Zone {
 
 export type Verdict = "parfait" | "tot" | "tard";
 
-export function zoneDuBonMoment(): Zone {
-  return { debut: 1000, fin: 1240 };
+const CENTRE_ZONE_MS = 1120;
+const LARGEUR_ZONE_MS = 240;
+const LARGEUR_ZONE_MAX_MS = 700;
+const ELARGISSEMENT_PAR_XP_MS = 6;
+
+export function zoneDuBonMoment(xp: number): Zone {
+  const largeur = Math.min(LARGEUR_ZONE_MAX_MS, LARGEUR_ZONE_MS + xp * ELARGISSEMENT_PAR_XP_MS);
+  return { debut: CENTRE_ZONE_MS - largeur / 2, fin: CENTRE_ZONE_MS + largeur / 2 };
 }
 
 export function jugerCoup(moment: number, zone: Zone): Verdict {

@@ -20,9 +20,10 @@ export function demarrerJeu(racine: HTMLElement): () => void {
     suiteDuCombat: "cuisine",
     vieAdversaire: VIE_OIGNON,
     message: "",
-    zone: zoneDuBonMoment(),
+    zone: zoneDuBonMoment(0),
     coupEnCours: false,
     premiereFois: true,
+    elargissementSignale: false,
     xp: 0,
     plantes: [],
     bonus: [],
@@ -45,12 +46,17 @@ export function demarrerJeu(racine: HTMLElement): () => void {
     if (etat.vieAdversaire === 0) {
       etat.xp += XP_VICTOIRE;
       etat.message += " L'oignon est vaincu.";
+      if (!etat.elargissementSignale) {
+        etat.elargissementSignale = true;
+        etat.message += " Le bon moment s'élargit !";
+      }
     }
     rendre();
   }
 
   function lancerCoup(): void {
     departDuCoup = Date.now();
+    etat.zone = zoneDuBonMoment(etat.xp);
     etat.coupEnCours = true;
     etat.message = "";
     finDuCoup = setTimeout(() => resoudreCoup(DUREE_JAUGE_MS), DUREE_JAUGE_MS);
@@ -102,6 +108,10 @@ export function demarrerJeu(racine: HTMLElement): () => void {
     const bouton = cible.closest<HTMLElement>("[data-action]");
     const action = bouton?.dataset.action;
     if (action === "cuisine") etat.scene = "cuisine";
+    if (action === "refaire") {
+      etat.vieAdversaire = VIE_OIGNON;
+      etat.message = "";
+    }
     if (action === "cuisiner") etat.scene = "degustation";
     if (action === "potager") {
       etat.scene = "potager";
