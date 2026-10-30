@@ -1,20 +1,7 @@
 import { screen } from "@testing-library/dom";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { vi } from "vitest";
-import { cliquer, espace, fermerJeu, lancerJeu } from "./aide";
-
-function zone(): { debut: number; fin: number } {
-  const jauge = screen.getByTestId("jauge");
-  return { debut: Number(jauge.dataset.debut), fin: Number(jauge.dataset.fin) };
-}
-
-function frapper(quand: "tot" | "bien" | "tard"): void {
-  espace();
-  const { debut, fin } = zone();
-  const moment = { tot: debut - 100, bien: (debut + fin) / 2, tard: fin + 100 }[quand];
-  vi.advanceTimersByTime(moment);
-  espace();
-}
+import { cliquer, espace, fermerJeu, frapper, lancerJeu } from "./aide";
 
 describe("le joueur vainc un oignon, le cuisine, et la daronne le goûte", () => {
   beforeEach(lancerJeu);

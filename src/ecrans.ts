@@ -1,16 +1,26 @@
 import { DUREE_JAUGE_MS, type Zone } from "./combat";
-import { figure } from "./figures";
+import { figure, type Figure } from "./figures";
+import { etapeDe, type Plante } from "./potager";
 
-export type Scene = "combat" | "cuisine" | "degustation";
+export type Scene = "combat" | "cuisine" | "degustation" | "potager";
+
+export interface Combattant {
+  nom: string;
+  figure: Figure;
+  degatsParfaits: number;
+}
 
 export interface EtatJeu {
   scene: Scene;
+  combattant: Combattant;
+  suiteDuCombat: "cuisine" | "potager";
   vieAdversaire: number;
   message: string;
   zone: Zone;
   coupEnCours: boolean;
   premiereFois: boolean;
   xp: number;
+  plantes: Plante[];
 }
 
 function jauge(zone: Zone): string {
@@ -24,21 +34,27 @@ function jauge(zone: Zone): string {
     </div>`;
 }
 
+function boutonApresCombat(etat: EtatJeu): string {
+  return etat.suiteDuCombat === "cuisine"
+    ? `<button type="button" data-action="cuisine">Passer en cuisine</button>`
+    : `<button type="button" data-action="potager">Retour au potager</button>`;
+}
+
 function ecranCombat(etat: EtatJeu): string {
   const aide = etat.premiereFois
     ? `<p class="aide">Appuie sur Espace pour lancer le coup, puis encore sur Espace quand le curseur est dans la zone.</p>`
     : "";
-  const suite =
-    etat.vieAdversaire === 0
-      ? `<button type="button" data-action="cuisine">Passer en cuisine</button>`
-      : "";
+  const suite = etat.vieAdversaire === 0 ? boutonApresCombat(etat) : "";
+  const annonce =
+    etat.combattant.figure === "heros" ? "" : `<p>La ${etat.combattant.nom.toLowerCase()} combat pour toi.</p>`;
   return `
     <h1>Combat</h1>
     <div class="arene ${etat.message ? "arene--frappe" : ""}">
-      ${figure("heros")}
+      ${figure(etat.combattant.figure)}
       ${figure("oignon")}
     </div>
-    <p class="adversaire">Oignon, <span data-testid="vie-adversaire">${etat.vieAdversaire}</span> points de vie</p>
+    ${annonce}
+    <p class="adversaire">Oignon, <span data-testid="vie-adversaire">${etat.vieAdversaire}</span> point${etat.vieAdversaire > 1 ? "s" : ""} de vie</p>
     ${aide}
     ${etat.coupEnCours ? jauge(etat.zone) : ""}
     <p role="status" class="message">${etat.message}</p>
@@ -59,6 +75,28 @@ function ecranDegustation(): string {
     <h1>La daronne goûte</h1>
     <div class="arene">${figure("daronne")}</div>
     <p class="note" data-testid="remarque-daronne">Ça se mange.</p>
+    <button type="button" data-action="potager">Aller au potager</button>
+  `;
+}
+
+function ecranPotager(etat: EtatJeu): string {
+  const plantes = etat.plantes.length
+    ? `<ul class="parcelles">${etat.plantes
+        .map((plante) => `<li data-testid="plante">${plante.nom}, ${etapeDe(plante)}</li>`)
+        .join("")}</ul>`
+    : `<p class="aide">Ton potager est vide. Plante une graine pour commencer.</p>`;
+  const arroser = etat.plantes.length
+    ? `<button type="button" data-action="arroser">Arroser</button>`
+    : "";
+  return `
+    <h1>Potager</h1>
+    ${plantes}
+    <p role="status" class="message">${etat.message}</p>
+    <div class="actions">
+      <button type="button" data-action="planter">Planter une graine</button>
+      ${arroser}
+      <button type="button" data-action="envoyer">Envoyer au combat</button>
+    </div>
   `;
 }
 
@@ -66,6 +104,7 @@ const ECRANS: Record<Scene, (etat: EtatJeu) => string> = {
   combat: ecranCombat,
   cuisine: ecranCuisine,
   degustation: ecranDegustation,
+  potager: ecranPotager,
 };
 
 export function ecran(etat: EtatJeu): string {
